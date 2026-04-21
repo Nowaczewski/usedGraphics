@@ -234,6 +234,11 @@ header {
     height: 220px;
     object-fit: cover;
     background: #dfe5ec;
+    border-radius: 8px;
+}
+
+.card {
+    overflow: hidden;
 }
 
 .feature-list {
@@ -319,4 +324,48 @@ footer .container {
     .hero-card img {
         height: 260px;
     }
+}
+.builds-section {
+  padding: 40px 20px;
+}
+
+.pc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.pc-card {
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.pc-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.pc-card p {
+  margin: 8px 0;
+}
+
+.pc-section {
+  margin-top: 16px;
+}
+
+.pc-section h4 {
+  margin-bottom: 8px;
+}
+
+.pc-section ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.pc-section li {
+  margin-bottom: 6px;
 }
