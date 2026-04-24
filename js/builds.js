@@ -21,12 +21,20 @@ function createBuildTile(build) {
     ? build.games.map((game) => `<li>${game}</li>`).join("")
     : "";
 
+  const detailLink = `build-detail.html?id=${build.id}`;
+
   return `
     <article class="card">
-      <img class="build-image" src="${build.image}" alt="${build.name}">
+      <a href="${detailLink}">
+        <img class="build-image" src="${build.image}" alt="${build.name}">
+      </a>
+
       <div class="card-body">
         <div class="eyebrow">${build.tier}</div>
-        <h3>${build.name}</h3>
+
+        <h3>
+          <a href="${detailLink}">${build.name}</a>
+        </h3>
 
         <p><strong>Price:</strong> ${build.price}</p>
         <p><strong>Performance:</strong> ${build.fps}</p>
@@ -47,10 +55,10 @@ function createBuildTile(build) {
             : ""
         }
 
-        <p class="contact-build-row">
-          <strong>Contact for build:</strong>
+        <div class="button-row" style="margin-top: 12px;">
+          <a class="btn btn-secondary" href="${detailLink}">View Full Build</a>
           <a class="btn btn-primary" href="contact.html">Contact</a>
-        </p>
+        </div>
       </div>
     </article>
   `;
