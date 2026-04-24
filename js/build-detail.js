@@ -35,6 +35,14 @@ if (!build) {
     ? build.games.map((game) => `<li>${game}</li>`).join("")
     : "";
 
+  const youtubeButton = build.youtube
+    ? `
+    <a class="btn btn-secondary" href="${build.youtube}" target="_blank">
+      Watch on YouTube
+    </a>
+  `
+    : "";
+
   detailContainer.innerHTML = `
     <div class="info-card">
       <img
@@ -62,11 +70,11 @@ if (!build) {
           `
           : ""
       }
-
-      <div class="button-row" style="margin-top: 20px;">
-        <a class="btn btn-primary" href="contact.html">Contact About This Build</a>
-        <a class="btn btn-secondary" href="builds.html">Back to Builds</a>
-      </div>
+<div class="button-row" style="margin-top: 20px;">
+  ${youtubeButton}
+  <a class="btn btn-primary" href="contact.html">Contact About This Build</a>
+  <a class="btn btn-secondary" href="builds.html">Back to Builds</a>
+</div>
     </div>
   `;
 }

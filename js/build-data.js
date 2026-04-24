@@ -6,6 +6,7 @@ const builds = [
     image: "images/build-1.jpg",
     price: "$850",
     fps: "120 FPS @ 1440P",
+    youtube: "https://www.youtube.com/watch?v=YOUR_VIDEO_ID",
     specs: {
       cpu: "i7-9700K",
       gpu: "RTX 3060 Ti",
@@ -28,6 +29,7 @@ const builds = [
     image: "images/build-2.jpg",
     price: "$550",
     fps: "90 FPS @ 1080p",
+    youtube: "https://www.youtube.com/watch?v=YOUR_VIDEO_ID",
     specs: {
       cpu: "i5-7600K",
       gpu: "GTX 1660 Super",
@@ -47,6 +49,7 @@ const builds = [
     image: "images/build-3.jpg",
     price: "$950",
     fps: "140 FPS @ 4K",
+    youtube: "https://www.youtube.com/watch?v=YOUR_VIDEO_ID",
     specs: {
       cpu: "Ryzen 7 5800X",
       gpu: "RTX 3070",
