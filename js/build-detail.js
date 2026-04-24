@@ -35,13 +35,14 @@ if (!build) {
     ? build.games.map((game) => `<li>${game}</li>`).join("")
     : "";
 
-  const youtubeButton = build.youtube
-    ? `
-    <a class="btn btn-secondary" href="${build.youtube}" target="_blank">
-      Watch on YouTube
-    </a>
-  `
-    : "";
+  const youtubeButton =
+    build.youtube && build.youtube.trim() !== ""
+      ? `
+      <a class="btn btn-secondary" href="${build.youtube}" target="_blank">
+        Watch Build Video
+      </a>
+    `
+      : "";
 
   detailContainer.innerHTML = `
     <div class="info-card">
