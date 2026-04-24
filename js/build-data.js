@@ -23,7 +23,7 @@ const builds = [
     ],
   },
   {
-    id: "GTX 1660 Super",
+    id: "gtx-1660-super",
     tier: "Budget Tier",
     name: "Starter Gaming PC",
     image: "images/build-2.jpg",
@@ -43,7 +43,7 @@ const builds = [
     games: ["Fortnite at 120 FPS", "Apex Legends at 75 FPS"],
   },
   {
-    id: "RTX 370 Performance",
+    id: "rtx-3070-performance",
     tier: "Higher-End Tier",
     name: "RTX 3070 Performance Build",
     image: "images/build-3.jpg",
