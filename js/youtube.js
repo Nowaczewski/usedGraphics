@@ -1,10 +1,18 @@
 function createYoutubeBuildTile(build) {
+  const detailLink = `build-detail.html?id=${build.id}`;
+
   return `
     <article class="card">
-      <img class="build-image" src="${build.image}" alt="${build.name}">
+      <a href="${detailLink}">
+        <img class="build-image" src="${build.image}" alt="${build.name}">
+      </a>
+
       <div class="card-body">
         <div class="eyebrow">${build.tier}</div>
-        <h3>${build.name}</h3>
+
+        <h3>
+          <a href="${detailLink}">${build.name}</a>
+        </h3>
 
         <ul class="feature-list">
           ${build.specs.cpu ? `<li><strong>CPU:</strong> ${build.specs.cpu}</li>` : ""}
@@ -15,6 +23,10 @@ function createYoutubeBuildTile(build) {
 
         <p><strong>Performance:</strong> ${build.fps}</p>
         <p><strong>Price:</strong> ${build.price}</p>
+
+        <div class="button-row" style="margin-top: 12px;">
+          <a class="btn btn-secondary" href="${detailLink}">View Full Build</a>
+        </div>
       </div>
     </article>
   `;
@@ -24,7 +36,9 @@ const youtubeContainer = document.getElementById("youtube-builds-container");
 
 if (youtubeContainer) {
   const latestThreeBuilds = builds.slice(-3).reverse();
-  youtubeContainer.innerHTML = latestThreeBuilds.map(build => createYoutubeBuildTile(build)).join("");
+  youtubeContainer.innerHTML = latestThreeBuilds
+    .map((build) => createYoutubeBuildTile(build))
+    .join("");
 } else {
   console.error("youtube-builds-container not found");
 }
