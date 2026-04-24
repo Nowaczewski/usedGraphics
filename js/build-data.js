@@ -4,7 +4,7 @@ const builds = [
     name: "RTX 3060 Ti Gaming Build",
     image: "images/build-1.jpg",
     price: "$850",
-    fps: "120 FPS @ 1080p",
+    fps: "120 FPS @ 1440P",
     specs: {
       cpu: "i7-9700K",
       gpu: "RTX 3060 Ti",
@@ -13,12 +13,12 @@ const builds = [
       storage: "1TB NVMe SSD",
       cooling: "Corsair AIO",
       psu: "Thermaltake 650W PSU",
-      case: "SAMA V40"
+      case: "SAMA V40",
     },
     games: [
       "Fortnite at 85 FPS Performance Mode",
-      "Battlefield 6 at 80 FPS Performance Mode"
-    ]
+      "Battlefield 6 at 80 FPS Performance Mode",
+    ],
   },
   {
     tier: "Budget Tier",
@@ -34,19 +34,16 @@ const builds = [
       storage: "500GB SSD",
       cooling: "Air Cooler",
       psu: "600W PSU",
-      case: "NZXT Case"
+      case: "NZXT Case",
     },
-    games: [
-      "Fortnite at 120 FPS",
-      "Apex Legends at 75 FPS"
-    ]
+    games: ["Fortnite at 120 FPS", "Apex Legends at 75 FPS"],
   },
   {
     tier: "Higher-End Tier",
     name: "RTX 3070 Performance Build",
     image: "images/build-3.jpg",
     price: "$950",
-    fps: "140 FPS @ 1080p",
+    fps: "140 FPS @ 4K",
     specs: {
       cpu: "Ryzen 7 5800X",
       gpu: "RTX 3070",
@@ -55,11 +52,8 @@ const builds = [
       storage: "1TB NVMe SSD",
       cooling: "240mm AIO",
       psu: "750W PSU",
-      case: "Lian Li Case"
+      case: "Lian Li Case",
     },
-    games: [
-      "Warzone at 120 FPS",
-      "Cyberpunk at 80 FPS High"
-    ]
-  }
+    games: ["Warzone at 120 FPS", "Cyberpunk at 80 FPS High"],
+  },
 ];
