@@ -204,6 +204,25 @@ header {
   padding: 22px;
 }
 
+.category-link {
+  color: inherit;
+  display: block;
+  transition: 0.15s ease;
+}
+
+.category-link:hover {
+  transform: translateY(-2px);
+  border-color: #d71920;
+}
+
+.category-link h3 {
+  color: #111827;
+}
+
+.category-link:hover h3 {
+  color: #d71920;
+}
+
 .card {
   overflow: hidden;
 }

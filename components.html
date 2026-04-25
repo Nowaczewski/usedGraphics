@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Builds | usedGraphics</title>
+    <title>Components | usedGraphics</title>
     <meta
       name="description"
-      content="Browse available, sold, and example gaming PC builds from usedGraphics."
+      content="Browse available PC components from usedGraphics, including graphics cards, memory, storage, and other gaming PC parts."
     />
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -14,8 +14,8 @@
   <body>
     <div class="topbar">
       <div class="container">
-        <div>Current builds and example configurations</div>
-        <div>Filter by availability, tier, price, and performance</div>
+        <div>Gaming PC parts and components</div>
+        <div>Filter by availability, type, condition, and price</div>
       </div>
     </div>
 
@@ -24,8 +24,8 @@
         <div class="logo">used<span>Graphics</span></div>
         <nav class="nav-links">
           <a href="index.html">Home</a>
-          <a href="builds.html" class="active">Builds</a>
-          <a href="components.html">Components</a>
+          <a href="builds.html">Builds</a>
+          <a href="components.html" class="active">Components</a>
           <a href="youtube.html">YouTube</a>
           <a href="how-to-buy.html">How to Buy</a>
           <a href="contact.html">Contact</a>
@@ -36,11 +36,10 @@
     <main>
       <section class="page-header">
         <div class="container">
-          <h1>Builds</h1>
+          <h1>Components</h1>
           <p>
-            Browse available and previously sold usedGraphics systems, with a
-            focus on practical performance, clean presentation, and real-world
-            value.
+            Browse available and previously sold gaming PC parts, including
+            graphics cards, memory, storage, and other useful components.
           </p>
         </div>
       </section>
@@ -51,19 +50,34 @@
             <div class="filter-group">
               <label for="availability-filter">Availability</label>
               <select id="availability-filter">
-                <option value="all">All Builds</option>
+                <option value="all">All Components</option>
                 <option value="in-stock">In Stock</option>
                 <option value="sold">Sold</option>
               </select>
             </div>
 
             <div class="filter-group">
-              <label for="tier-filter">Tier</label>
-              <select id="tier-filter">
-                <option value="all">All Tiers</option>
-                <option value="Budget Tier">Budget Tier</option>
-                <option value="Performance Tier">Performance Tier</option>
-                <option value="Higher-End Tier">Higher-End Tier</option>
+              <label for="type-filter">Type</label>
+              <select id="type-filter">
+                <option value="all">All Types</option>
+                <option value="GPU">GPU</option>
+                <option value="CPU">CPU</option>
+                <option value="Motherboard">Motherboard</option>
+                <option value="Memory">Memory</option>
+                <option value="Storage">Storage</option>
+                <option value="Power Supply">Power Supply</option>
+                <option value="Case">Case</option>
+                <option value="Cooling">Cooling</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="condition-filter">Condition</label>
+              <select id="condition-filter">
+                <option value="all">All Conditions</option>
+                <option value="Used">Used</option>
+                <option value="New">New</option>
+                <option value="Open Box">Open Box</option>
               </select>
             </div>
 
@@ -71,20 +85,10 @@
               <label for="price-filter">Price</label>
               <select id="price-filter">
                 <option value="all">All Prices</option>
-                <option value="under-500">Under $500</option>
-                <option value="500-750">$500 - $750</option>
-                <option value="750-1000">$750 - $1,000</option>
-                <option value="over-1000">Over $1,000</option>
-              </select>
-            </div>
-
-            <div class="filter-group">
-              <label for="performance-filter">Performance</label>
-              <select id="performance-filter">
-                <option value="all">All Performance</option>
-                <option value="1080p">1080p Gaming</option>
-                <option value="1440p">1440p Gaming</option>
-                <option value="4k">4K Gaming</option>
+                <option value="under-50">Under $50</option>
+                <option value="50-150">$50 - $150</option>
+                <option value="150-300">$150 - $300</option>
+                <option value="over-300">Over $300</option>
               </select>
             </div>
 
@@ -94,7 +98,6 @@
                 <option value="default">Default</option>
                 <option value="price-low">Price: Low to High</option>
                 <option value="price-high">Price: High to Low</option>
-                <option value="fps-high">FPS: High to Low</option>
               </select>
             </div>
 
@@ -103,7 +106,7 @@
             </button>
           </div>
 
-          <div id="pc-container" class="grid grid-3"></div>
+          <div id="component-container" class="grid grid-3"></div>
         </div>
       </section>
     </main>
@@ -114,7 +117,7 @@
       </div>
     </footer>
 
-    <script src="js/build-data.js"></script>
-    <script src="js/builds.js"></script>
+    <script src="js/component-data.js"></script>
+    <script src="js/components.js"></script>
   </body>
 </html>

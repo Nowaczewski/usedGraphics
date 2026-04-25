@@ -1,0 +1,113 @@
+const componentDetailContainer = document.getElementById("component-detail");
+const params = new URLSearchParams(window.location.search);
+const componentId = params.get("id");
+
+const component = components.find((item) => item.id === componentId);
+
+if (!component) {
+  componentDetailContainer.innerHTML = `
+    <div class="info-card">
+      <h1>Component not found</h1>
+      <p>This component may no longer be available.</p>
+      <a class="btn btn-primary" href="components.html">Back to Components</a>
+    </div>
+  `;
+} else {
+  const componentStatus = component.status || "in-stock";
+  const statusText = componentStatus === "sold" ? "Sold" : "In Stock";
+  const statusClass =
+    componentStatus === "sold" ? "status-sold" : "status-in-stock";
+
+  const imageGallery =
+    component.images && component.images.length
+      ? component.images
+      : [component.image];
+
+  const details = component.details
+    ? Object.entries(component.details)
+        .map(([key, value]) => {
+          const label = key
+            .replace(/([A-Z])/g, " $1")
+            .replace(/^./, (str) => str.toUpperCase());
+
+          return `<li><strong>${label}:</strong> ${value}</li>`;
+        })
+        .join("")
+    : "";
+
+  const thumbnails = imageGallery
+    .map(
+      (image, index) => `
+        <button
+          class="thumbnail-button ${index === 0 ? "active" : ""}"
+          data-image="${image}"
+          type="button"
+        >
+          <img src="${image}" alt="${component.name} angle ${index + 1}">
+        </button>
+      `,
+    )
+    .join("");
+
+  componentDetailContainer.innerHTML = `
+    <div class="info-card build-card ${
+      componentStatus === "sold" ? "sold" : ""
+    }">
+      <img
+        id="main-component-image"
+        class="build-image build-detail-main-image"
+        src="${imageGallery[0]}"
+        alt="${component.name}"
+      >
+
+      ${
+        imageGallery.length > 1
+          ? `
+            <div class="build-thumbnails">
+              ${thumbnails}
+            </div>
+          `
+          : ""
+      }
+
+      <div class="eyebrow">${component.type}</div>
+      <h1>${component.name}</h1>
+
+      <span class="detail-status ${statusClass}">
+        ${statusText}
+      </span>
+
+      <p><strong>Availability:</strong> ${statusText}</p>
+      <p><strong>Brand:</strong> ${component.brand}</p>
+      <p><strong>Condition:</strong> ${component.condition}</p>
+      <p><strong>Price:</strong> ${component.price}</p>
+      <p>${component.description || ""}</p>
+
+      ${
+        details
+          ? `
+            <h2>Component Details</h2>
+            <ul class="feature-list">${details}</ul>
+          `
+          : ""
+      }
+
+      <div class="button-row" style="margin-top: 20px;">
+        <a class="btn btn-primary" href="contact.html">Contact About This Component</a>
+        <a class="btn btn-secondary" href="components.html">Back to Components</a>
+      </div>
+    </div>
+  `;
+
+  const mainImage = document.getElementById("main-component-image");
+  const thumbnailButtons = document.querySelectorAll(".thumbnail-button");
+
+  thumbnailButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      mainImage.src = button.dataset.image;
+
+      thumbnailButtons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+    });
+  });
+}

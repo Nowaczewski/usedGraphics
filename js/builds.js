@@ -179,6 +179,17 @@ function filterBuilds() {
   renderBuilds(filteredBuilds);
 }
 
+function applyFiltersFromUrl() {
+  const pageParams = new URLSearchParams(window.location.search);
+  const tierFromUrl = pageParams.get("tier");
+
+  if (tierFromUrl && tierFilter) {
+    tierFilter.value = tierFromUrl;
+  }
+
+  filterBuilds();
+}
+
 if (availabilityFilter)
   availabilityFilter.addEventListener("change", filterBuilds);
 if (tierFilter) tierFilter.addEventListener("change", filterBuilds);
@@ -190,12 +201,15 @@ if (sortFilter) sortFilter.addEventListener("change", filterBuilds);
 if (resetFilters) {
   resetFilters.addEventListener("click", () => {
     if (availabilityFilter) availabilityFilter.value = "all";
-    tierFilter.value = "all";
-    priceFilter.value = "all";
-    performanceFilter.value = "all";
-    sortFilter.value = "default";
+    if (tierFilter) tierFilter.value = "all";
+    if (priceFilter) priceFilter.value = "all";
+    if (performanceFilter) performanceFilter.value = "all";
+    if (sortFilter) sortFilter.value = "default";
+
+    window.history.replaceState({}, document.title, "builds.html");
+
     renderBuilds(builds);
   });
 }
 
-renderBuilds(builds);
+applyFiltersFromUrl();
