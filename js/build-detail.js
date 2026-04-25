@@ -13,6 +13,11 @@ if (!build) {
     </div>
   `;
 } else {
+  const buildStatus = build.status || "in-stock";
+  const statusText = buildStatus === "sold" ? "Sold" : "In Stock";
+  const statusClass =
+    buildStatus === "sold" ? "status-sold" : "status-in-stock";
+
   const specLabels = {
     cpu: "CPU",
     gpu: "GPU",
@@ -45,7 +50,7 @@ if (!build) {
       : "";
 
   detailContainer.innerHTML = `
-    <div class="info-card">
+    <div class="info-card build-card ${buildStatus === "sold" ? "sold" : ""}">
       <img
         class="build-image"
         src="${build.image}"
@@ -56,6 +61,11 @@ if (!build) {
       <div class="eyebrow">${build.tier}</div>
       <h1>${build.name}</h1>
 
+      <span class="detail-status ${statusClass}">
+        ${statusText}
+      </span>
+
+      <p><strong>Availability:</strong> ${statusText}</p>
       <p><strong>Price:</strong> ${build.price}</p>
       <p><strong>Performance:</strong> ${build.fps}</p>
       <p>${build.description || ""}</p>
@@ -71,11 +81,12 @@ if (!build) {
           `
           : ""
       }
-<div class="button-row" style="margin-top: 20px;">
-  ${youtubeButton}
-  <a class="btn btn-primary" href="contact.html">Contact About This Build</a>
-  <a class="btn btn-secondary" href="builds.html">Back to Builds</a>
-</div>
+
+      <div class="button-row" style="margin-top: 20px;">
+        ${youtubeButton}
+        <a class="btn btn-primary" href="contact.html">Contact About This Build</a>
+        <a class="btn btn-secondary" href="builds.html">Back to Builds</a>
+      </div>
     </div>
   `;
 }

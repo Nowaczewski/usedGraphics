@@ -23,10 +23,18 @@ function createBuildTile(build) {
 
   const detailLink = `build-detail.html?id=${build.id}`;
 
+  const buildStatus = build.status || "in-stock";
+  const statusText = buildStatus === "sold" ? "Sold" : "In Stock";
+  const statusClass =
+    buildStatus === "sold" ? "status-sold" : "status-in-stock";
+
   return `
-    <article class="card">
-      <a href="${detailLink}">
+    <article class="card build-card ${buildStatus === "sold" ? "sold" : ""}">
+      <a href="${detailLink}" class="build-image-wrap">
         <img class="build-image" src="${build.image}" alt="${build.name}">
+        <span class="status-badge ${statusClass}">
+          ${statusText}
+        </span>
       </a>
 
       <div class="card-body">
@@ -36,6 +44,7 @@ function createBuildTile(build) {
           <a href="${detailLink}">${build.name}</a>
         </h3>
 
+        <p><strong>Availability:</strong> ${statusText}</p>
         <p><strong>Price:</strong> ${build.price}</p>
         <p><strong>Performance:</strong> ${build.fps}</p>
 
@@ -66,6 +75,7 @@ function createBuildTile(build) {
 
 const container = document.getElementById("pc-container");
 
+const availabilityFilter = document.getElementById("availability-filter");
 const tierFilter = document.getElementById("tier-filter");
 const priceFilter = document.getElementById("price-filter");
 const performanceFilter = document.getElementById("performance-filter");
@@ -107,12 +117,23 @@ function renderBuilds(buildList) {
 function filterBuilds() {
   let filteredBuilds = [...builds];
 
+  const selectedAvailability = availabilityFilter
+    ? availabilityFilter.value
+    : "all";
+
   const selectedTier = tierFilter ? tierFilter.value : "all";
   const selectedPrice = priceFilter ? priceFilter.value : "all";
   const selectedPerformance = performanceFilter
     ? performanceFilter.value
     : "all";
   const selectedSort = sortFilter ? sortFilter.value : "default";
+
+  if (selectedAvailability !== "all") {
+    filteredBuilds = filteredBuilds.filter((build) => {
+      const buildStatus = build.status || "in-stock";
+      return buildStatus === selectedAvailability;
+    });
+  }
 
   if (selectedTier !== "all") {
     filteredBuilds = filteredBuilds.filter(
@@ -158,6 +179,8 @@ function filterBuilds() {
   renderBuilds(filteredBuilds);
 }
 
+if (availabilityFilter)
+  availabilityFilter.addEventListener("change", filterBuilds);
 if (tierFilter) tierFilter.addEventListener("change", filterBuilds);
 if (priceFilter) priceFilter.addEventListener("change", filterBuilds);
 if (performanceFilter)
@@ -166,6 +189,7 @@ if (sortFilter) sortFilter.addEventListener("change", filterBuilds);
 
 if (resetFilters) {
   resetFilters.addEventListener("click", () => {
+    if (availabilityFilter) availabilityFilter.value = "all";
     tierFilter.value = "all";
     priceFilter.value = "all";
     performanceFilter.value = "all";

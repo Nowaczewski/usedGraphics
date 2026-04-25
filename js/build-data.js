@@ -4,6 +4,7 @@ const builds = [
     tier: "Performance Tier",
     name: "RTX 3060 Ti Gaming Build",
     image: "images/build-1.jpg",
+    status: "in-stock", // "Sold"
     price: "$850",
     fps: "120 FPS @ 1440P",
     youtube: "https://www.youtube.com/watch?v=YOUR_VIDEO_ID",
@@ -27,6 +28,7 @@ const builds = [
     tier: "Budget Tier",
     name: "Starter Gaming PC",
     image: "images/build-2.jpg",
+    status: "sold",
     price: "$550",
     fps: "90 FPS @ 1080p",
     // youtube: "",
@@ -47,6 +49,7 @@ const builds = [
     tier: "Higher-End Tier",
     name: "RTX 3070 Performance Build",
     image: "images/build-3.jpg",
+    status: "sold",
     price: "$950",
     fps: "140 FPS @ 4K",
     // youtube: "",
