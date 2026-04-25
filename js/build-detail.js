@@ -18,6 +18,9 @@ if (!build) {
   const statusClass =
     buildStatus === "sold" ? "status-sold" : "status-in-stock";
 
+  const imageGallery =
+    build.images && build.images.length ? build.images : [build.image];
+
   const specLabels = {
     cpu: "CPU",
     gpu: "GPU",
@@ -49,14 +52,38 @@ if (!build) {
     `
       : "";
 
+  const thumbnails = imageGallery
+    .map(
+      (image, index) => `
+        <button
+          class="thumbnail-button ${index === 0 ? "active" : ""}"
+          data-image="${image}"
+          type="button"
+        >
+          <img src="${image}" alt="${build.name} angle ${index + 1}">
+        </button>
+      `,
+    )
+    .join("");
+
   detailContainer.innerHTML = `
     <div class="info-card build-card ${buildStatus === "sold" ? "sold" : ""}">
       <img
-        class="build-image"
-        src="${build.image}"
+        id="main-build-image"
+        class="build-image build-detail-main-image"
+        src="${imageGallery[0]}"
         alt="${build.name}"
-        style="height: 360px; margin-bottom: 20px;"
       >
+
+      ${
+        imageGallery.length > 1
+          ? `
+            <div class="build-thumbnails">
+              ${thumbnails}
+            </div>
+          `
+          : ""
+      }
 
       <div class="eyebrow">${build.tier}</div>
       <h1>${build.name}</h1>
@@ -89,4 +116,30 @@ if (!build) {
       </div>
     </div>
   `;
+
+  const mainImage = document.getElementById("main-build-image");
+  const thumbnailButtons = document.querySelectorAll(".thumbnail-button");
+
+  function updateMainImageDisplay() {
+    mainImage.classList.remove("portrait");
+
+    if (mainImage.naturalHeight > mainImage.naturalWidth) {
+      mainImage.classList.add("portrait");
+    }
+  }
+
+  mainImage.addEventListener("load", updateMainImageDisplay);
+
+  if (mainImage.complete) {
+    updateMainImageDisplay();
+  }
+
+  thumbnailButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      mainImage.src = button.dataset.image;
+
+      thumbnailButtons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+    });
+  });
 }
