@@ -15,7 +15,7 @@ const components = [
       "images/components/rtx-3060-ti/ports.jpg",
     ],
     description:
-      "Tested graphics card ready for a gaming PC build. Good option for 1080p and 1440p gaming. Available for sale",
+      "Tested graphics card ready for a gaming PC build. Good option for 1080p and 1440p gaming.",
     details: {
       memory: "8GB GDDR6",
       tested: "Yes",
