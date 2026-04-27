@@ -27,12 +27,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Add cache-busting version to CSS and JS
+      - name: Add cache-busting version to static assets
         run: |
           VERSION=${GITHUB_SHA::7}
 
-          find . -name "*.html" -type f -print0 | xargs -0 sed -i -E "s#(href=\"[^\"]+\.css)(\")#\1?v=$VERSION\2#g"
-          find . -name "*.html" -type f -print0 | xargs -0 sed -i -E "s#(src=\"[^\"]+\.js)(\")#\1?v=$VERSION\2#g"
+          find . -name "*.html" -type f -print0 | xargs -0 sed -i -E "s#(href=\"[^\"]+\.css)(\?v=[^\"]*)?(\")#\1?v=$VERSION\3#g"
+          find . -name "*.html" -type f -print0 | xargs -0 sed -i -E "s#(src=\"[^\"]+\.js)(\?v=[^\"]*)?(\")#\1?v=$VERSION\3#g"
+
+          find . -name "*.html" -type f -print0 | xargs -0 sed -i -E "s#(src=\"[^\"]+\.(jpg|jpeg|png|webp|gif|svg|ico))(\?v=[^\"]*)?(\")#\1?v=$VERSION\4#g"
+          find . -name "*.html" -type f -print0 | xargs -0 sed -i -E "s#(src=\"[^\"]+\.(mp4|webm|mov))(\?v=[^\"]*)?(\")#\1?v=$VERSION\4#g"
+          find . -name "*.html" -type f -print0 | xargs -0 sed -i -E "s#(href=\"[^\"]+\.(woff|woff2|ttf|otf|eot))(\?v=[^\"]*)?(\")#\1?v=$VERSION\4#g"
+
+          find . -name "*.css" -type f -print0 | xargs -0 sed -i -E "s#(url\(['\"]?[^'\")]+\.(jpg|jpeg|png|webp|gif|svg|ico|woff|woff2|ttf|otf|eot|mp4|webm|mov))(\?v=[^'\")]*)?(['\"]?\))#\1?v=$VERSION\4#g"
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
