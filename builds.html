@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Builds | usedGraphics</title>
+    <meta
+      name="description"
+      content="Browse available, sold, and example gaming PC builds from usedGraphics."
+    />
+    <link rel="stylesheet" href="css/style.css?v=5c7f556" />
+  </head>
+
+  <body>
+    <div class="topbar">
+      <div class="container">
+        <div>Current builds and example configurations</div>
+        <div>Filter by availability, tier, price, and performance</div>
+      </div>
+    </div>
+
+    <header>
+      <div class="container navbar">
+        <div class="logo">used<span>Graphics</span></div>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="builds.html" class="active">Builds</a>
+          <a href="components.html">Components</a>
+          <a href="youtube.html">YouTube</a>
+          <a href="how-to-buy.html">How to Buy</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-header">
+        <div class="container">
+          <h1>Builds</h1>
+          <p>
+            Browse available and previously sold usedGraphics systems, with a
+            focus on practical performance, clean presentation, and real-world
+            value.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="filter-panel">
+            <div class="filter-group">
+              <label for="availability-filter">Availability</label>
+              <select id="availability-filter">
+                <option value="all">All Builds</option>
+                <option value="in-stock">In Stock</option>
+                <option value="sold">Sold</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="tier-filter">Tier</label>
+              <select id="tier-filter">
+                <option value="all">All Tiers</option>
+                <option value="Budget Tier">Budget Tier</option>
+                <option value="Performance Tier">Performance Tier</option>
+                <option value="Higher-End Tier">Higher-End Tier</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="price-filter">Price</label>
+              <select id="price-filter">
+                <option value="all">All Prices</option>
+                <option value="under-500">Under $500</option>
+                <option value="500-750">$500 - $750</option>
+                <option value="750-1000">$750 - $1,000</option>
+                <option value="over-1000">Over $1,000</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="performance-filter">Performance</label>
+              <select id="performance-filter">
+                <option value="all">All Performance</option>
+                <option value="1080p">1080p Gaming</option>
+                <option value="1440p">1440p Gaming</option>
+                <option value="4k">4K Gaming</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="sort-filter">Sort By</label>
+              <select id="sort-filter">
+                <option value="default">Default</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="fps-high">FPS: High to Low</option>
+              </select>
+            </div>
+
+            <button id="reset-filters" class="btn btn-secondary">
+              Reset Filters
+            </button>
+          </div>
+
+          <div id="pc-container" class="grid grid-3"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2026 usedGraphics. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/build-data.js?v=5c7f556"></script>
+    <script src="js/builds.js?v=5c7f556"></script>
+  </body>
+</html>

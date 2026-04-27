@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Components | usedGraphics</title>
+    <meta
+      name="description"
+      content="Browse available PC components from usedGraphics, including graphics cards, memory, storage, and other gaming PC parts."
+    />
+    <link rel="stylesheet" href="css/style.css?v=5c7f556" />
+  </head>
+
+  <body>
+    <div class="topbar">
+      <div class="container">
+        <div>Gaming PC parts and components</div>
+        <div>Filter by availability, type, condition, and price</div>
+      </div>
+    </div>
+
+    <header>
+      <div class="container navbar">
+        <div class="logo">used<span>Graphics</span></div>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="builds.html">Builds</a>
+          <a href="components.html" class="active">Components</a>
+          <a href="youtube.html">YouTube</a>
+          <a href="how-to-buy.html">How to Buy</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-header">
+        <div class="container">
+          <h1>Components</h1>
+          <p>
+            Browse available and previously sold gaming PC parts, including
+            graphics cards, memory, storage, and other useful components.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="filter-panel">
+            <div class="filter-group">
+              <label for="availability-filter">Availability</label>
+              <select id="availability-filter">
+                <option value="all">All Components</option>
+                <option value="in-stock">In Stock</option>
+                <option value="sold">Sold</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="type-filter">Type</label>
+              <select id="type-filter">
+                <option value="all">All Types</option>
+                <option value="GPU">GPU</option>
+                <option value="CPU">CPU</option>
+                <option value="Motherboard">Motherboard</option>
+                <option value="Memory">Memory</option>
+                <option value="Storage">Storage</option>
+                <option value="Power Supply">Power Supply</option>
+                <option value="Case">Case</option>
+                <option value="Cooling">Cooling</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="condition-filter">Condition</label>
+              <select id="condition-filter">
+                <option value="all">All Conditions</option>
+                <option value="Used">Used</option>
+                <option value="New">New</option>
+                <option value="Open Box">Open Box</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="price-filter">Price</label>
+              <select id="price-filter">
+                <option value="all">All Prices</option>
+                <option value="under-50">Under $50</option>
+                <option value="50-150">$50 - $150</option>
+                <option value="150-300">$150 - $300</option>
+                <option value="over-300">Over $300</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="sort-filter">Sort By</label>
+              <select id="sort-filter">
+                <option value="default">Default</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+              </select>
+            </div>
+
+            <button id="reset-filters" class="btn btn-secondary">
+              Reset Filters
+            </button>
+          </div>
+
+          <div id="component-container" class="grid grid-3"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2026 usedGraphics. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/component-data.js?v=5c7f556"></script>
+    <script src="js/components.js?v=5c7f556"></script>
+  </body>
+</html>

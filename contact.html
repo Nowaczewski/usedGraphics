@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | usedGraphics</title>
+    <meta
+      name="description"
+      content="Contact usedGraphics about PC builds, availability, pricing, upgrade questions, and budget gaming recommendations."
+    />
+    <link rel="stylesheet" href="css/style.css?v=5c7f556" />
+  </head>
+
+  <body>
+    <div class="topbar">
+      <div class="container">
+        <div>Questions about builds or availability?</div>
+        <div>Reach out before you buy</div>
+      </div>
+    </div>
+
+    <header>
+      <div class="container navbar">
+        <div class="logo">used<span>Graphics</span></div>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="builds.html">Builds</a>
+          <a href="components.html">Components</a>
+          <a href="youtube.html">YouTube</a>
+          <a href="how-to-buy.html">How to Buy</a>
+          <a href="contact.html" class="active">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-header">
+        <div class="container">
+          <h1>Contact usedGraphics</h1>
+          <p>
+            Ask about current PC builds, gaming performance, pricing, upgrades,
+            or what kind of system fits your budget best.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container grid grid-2">
+          <div class="info-card">
+            <h2 class="panel-title">Send a message</h2>
+
+            <form
+              class="form-grid"
+              action="https://formspree.io/f/xaqavngy"
+              method="POST"
+            >
+              <!-- Honeypot field for spam bots. Real users should not see or fill this out. -->
+              <div style="display: none">
+                <label for="website">Website</label>
+                <input
+                  id="website"
+                  name="_gotcha"
+                  type="text"
+                  autocomplete="off"
+                  tabindex="-1"
+                />
+              </div>
+
+              <input
+                type="hidden"
+                name="_subject"
+                value="New usedGraphics Contact Form Submission"
+              />
+
+              <input
+                type="hidden"
+                name="_next"
+                value="https://usedgraphics.com/contact-success.html"
+              />
+
+              <div>
+                <label for="name">Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Your name"
+                  maxlength="100"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  maxlength="255"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="interest">What are you looking for?</label>
+                <select id="interest" name="interest" required>
+                  <option value="General question">General question</option>
+                  <option value="Build availability">Build availability</option>
+                  <option value="Budget recommendation">
+                    Budget recommendation
+                  </option>
+                  <option value="Upgrade question">Upgrade question</option>
+                  <option value="Customer service">Customer service</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Tell us what games you play, your budget, and what kind of system you're looking for."
+                  maxlength="5000"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="button-row">
+                <button class="btn btn-primary" type="submit">
+                  Send Message
+                </button>
+              </div>
+            </form>
+
+            <div class="notice">
+              We only use your contact details to respond to your message.
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h2 class="panel-title">Other contact options</h2>
+            <ul class="feature-list">
+              <li>eBay: seller page coming soon</li>
+              <li>Facebook Marketplace: link coming soon</li>
+              <li>Typical response target: 24 to 48 hours</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2026 usedGraphics. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
