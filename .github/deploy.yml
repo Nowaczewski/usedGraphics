@@ -1,0 +1,26 @@
+name: Deploy with Cache Busting
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add cache-busting version
+        run: |
+          VERSION=${GITHUB_SHA::7}
+
+          find . -name "*.html" -type f -print0 | xargs -0 sed -i -E "s#(href=\"[^\"]+\.css)(\")#\1?v=$VERSION\2#g"
+          find . -name "*.html" -type f -print0 | xargs -0 sed -i -E "s#(src=\"[^\"]+\.js)(\")#\1?v=$VERSION\2#g"
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
