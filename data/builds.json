@@ -5,11 +5,13 @@
       "tier": "Performance Tier",
       "name": "RTX 3060 Ti Gaming Build",
       "image": "images/build-1.jpeg",
-      "images": ["images/build-1.jpeg"],
+      "images": [
+        "images/build-1.jpeg"
+      ],
       "status": "in-stock",
       "price": "$850",
       "fps": "120 FPS @ 1440P",
-      "youtube": "https://www.youtube.com/watch?v=YOUR_VIDEO_ID",
+      "youtube": "https://www.youtube.com/watch?v=4RS9vUHCO2Q&t=9s",
       "description": "",
       "specs": {
         "cpu": "i7-9700K",
