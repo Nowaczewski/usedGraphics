@@ -1,0 +1,211 @@
+backend:
+  name: github
+  repo: Nowaczewski/usedGraphics
+  branch: development
+  base_url: https://bold-lab-2add.nowaczewskijack.workers.dev
+
+media_folder: "images/uploads"
+public_folder: "images/uploads"
+
+collections:
+  - name: "builds"
+    label: "Builds"
+    files:
+      - name: "builds"
+        label: "Builds"
+        file: "data/builds.json"
+        format: "json"
+        fields:
+          - label: "Builds"
+            name: "builds"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - {
+                  label: "Tier",
+                  name: "tier",
+                  widget: "select",
+                  options:
+                    ["Budget Tier", "Performance Tier", "Higher-End Tier"],
+                }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Main Image", name: "image", widget: "image" }
+              - {
+                  label: "Images",
+                  name: "images",
+                  widget: "list",
+                  field: { label: "Image", name: "image", widget: "image" },
+                }
+              - {
+                  label: "Status",
+                  name: "status",
+                  widget: "select",
+                  options: ["in-stock", "sold"],
+                }
+              - { label: "Price", name: "price", widget: "string" }
+              - { label: "FPS", name: "fps", widget: "string" }
+              - {
+                  label: "YouTube",
+                  name: "youtube",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Description",
+                  name: "description",
+                  widget: "text",
+                  required: false,
+                }
+
+              - label: "Specs"
+                name: "specs"
+                widget: "object"
+                fields:
+                  - {
+                      label: "CPU",
+                      name: "cpu",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "GPU",
+                      name: "gpu",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Motherboard",
+                      name: "motherboard",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Memory",
+                      name: "memory",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Storage",
+                      name: "storage",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Cooling",
+                      name: "cooling",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "PSU",
+                      name: "psu",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Case",
+                      name: "case",
+                      widget: "string",
+                      required: false,
+                    }
+
+              - {
+                  label: "Games Tested",
+                  name: "games",
+                  widget: "list",
+                  required: false,
+                }
+
+  - name: "components"
+    label: "Components"
+    files:
+      - name: "components"
+        label: "Components"
+        file: "data/components.json"
+        format: "json"
+        fields:
+          - label: "Components"
+            name: "components"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "select",
+                  options:
+                    [
+                      "GPU",
+                      "CPU",
+                      "Motherboard",
+                      "Memory",
+                      "Storage",
+                      "Power Supply",
+                      "Case",
+                      "Cooling",
+                    ],
+                }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Brand", name: "brand", widget: "string" }
+              - {
+                  label: "Condition",
+                  name: "condition",
+                  widget: "select",
+                  options: ["Used", "New", "Open Box"],
+                }
+              - {
+                  label: "Status",
+                  name: "status",
+                  widget: "select",
+                  options: ["in-stock", "sold"],
+                }
+              - { label: "Price", name: "price", widget: "string" }
+              - { label: "Main Image", name: "image", widget: "image" }
+              - {
+                  label: "Images",
+                  name: "images",
+                  widget: "list",
+                  field: { label: "Image", name: "image", widget: "image" },
+                }
+              - {
+                  label: "Description",
+                  name: "description",
+                  widget: "text",
+                  required: false,
+                }
+
+              - label: "Details"
+                name: "details"
+                widget: "object"
+                fields:
+                  - {
+                      label: "Memory",
+                      name: "memory",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Capacity",
+                      name: "capacity",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Speed",
+                      name: "speed",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Tested",
+                      name: "tested",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Notes",
+                      name: "notes",
+                      widget: "text",
+                      required: false,
+                    }
