@@ -1,0 +1,30 @@
+{
+  "builds": [
+    {
+      "id": "3060-ti",
+      "tier": "Performance Tier",
+      "name": "RTX 3060 Ti Gaming Build",
+      "image": "images/build-1.jpg",
+      "images": ["images/build-1.jpg"],
+      "status": "in-stock",
+      "price": "$850",
+      "fps": "120 FPS @ 1440P",
+      "youtube": "https://www.youtube.com/watch?v=YOUR_VIDEO_ID",
+      "description": "",
+      "specs": {
+        "cpu": "i7-9700K",
+        "gpu": "RTX 3060 Ti",
+        "motherboard": "MSI Z390 Gaming Plus",
+        "memory": "16GB DDR4",
+        "storage": "1TB NVMe SSD",
+        "cooling": "Corsair AIO",
+        "psu": "Thermaltake 650W PSU",
+        "case": "SAMA V40"
+      },
+      "games": [
+        "Fortnite at 85 FPS Performance Mode",
+        "Battlefield 6 at 80 FPS Performance Mode"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "id": "rtx-3060-ti",
+      "type": "GPU",
+      "name": "RTX 3060 Ti 8GB Graphics Card",
+      "brand": "MSI",
+      "condition": "Used",
+      "status": "in-stock",
+      "price": "$225",
+      "image": "images/components/rtx-3060-ti/main.jpg",
+      "images": ["images/components/rtx-3060-ti/main.jpg"],
+      "description": "Tested graphics card ready for a gaming PC build.",
+      "details": {
+        "memory": "8GB GDDR6",
+        "capacity": "",
+        "speed": "",
+        "tested": "Yes",
+        "notes": "Cleaned, tested, and ready for use."
+      }
+    }
+  ]
+}
