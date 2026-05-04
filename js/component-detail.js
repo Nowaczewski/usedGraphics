@@ -2,9 +2,18 @@ const componentDetailContainer = document.getElementById("component-detail");
 const params = new URLSearchParams(window.location.search);
 const componentId = params.get("id");
 
-const component = components.find((item) => item.id === componentId);
+async function loadComponents() {
+  const response = await fetch(`data/components.json?v=${Date.now()}`);
 
-if (!component) {
+  if (!response.ok) {
+    throw new Error("Could not load components.json");
+  }
+
+  const data = await response.json();
+  return data.components || [];
+}
+
+function renderComponentNotFound() {
   componentDetailContainer.innerHTML = `
     <div class="info-card">
       <h1>Component not found</h1>
@@ -12,7 +21,9 @@ if (!component) {
       <a class="btn btn-primary" href="components.html">Back to Components</a>
     </div>
   `;
-} else {
+}
+
+function renderComponentDetail(component) {
   const componentStatus = component.status || "in-stock";
   const statusText = componentStatus === "sold" ? "Sold" : "In Stock";
   const statusClass =
@@ -26,6 +37,8 @@ if (!component) {
   const details = component.details
     ? Object.entries(component.details)
         .map(([key, value]) => {
+          if (!value) return "";
+
           const label = key
             .replace(/([A-Z])/g, " $1")
             .replace(/^./, (str) => str.toUpperCase());
@@ -111,3 +124,27 @@ if (!component) {
     });
   });
 }
+
+async function initComponentDetailPage() {
+  if (!componentDetailContainer) {
+    console.error("component-detail container not found");
+    return;
+  }
+
+  try {
+    const components = await loadComponents();
+    const component = components.find((item) => item.id === componentId);
+
+    if (!component) {
+      renderComponentNotFound();
+      return;
+    }
+
+    renderComponentDetail(component);
+  } catch (error) {
+    console.error(error);
+    renderComponentNotFound();
+  }
+}
+
+initComponentDetailPage();

@@ -1,3 +1,16 @@
+let components = [];
+
+async function loadComponents() {
+  const response = await fetch(`data/components.json?v=${Date.now()}`);
+
+  if (!response.ok) {
+    throw new Error("Could not load components.json");
+  }
+
+  const data = await response.json();
+  return data.components || [];
+}
+
 function createComponentTile(component) {
   const detailLink = `component-detail.html?id=${component.id}`;
 
@@ -9,6 +22,8 @@ function createComponentTile(component) {
   const detailsList = component.details
     ? Object.entries(component.details)
         .map(([key, value]) => {
+          if (!value) return "";
+
           const label = key
             .replace(/([A-Z])/g, " $1")
             .replace(/^./, (str) => str.toUpperCase());
@@ -186,4 +201,22 @@ if (resetFilters) {
   });
 }
 
-applyFiltersFromUrl();
+async function initComponentsPage() {
+  try {
+    components = await loadComponents();
+    applyFiltersFromUrl();
+  } catch (error) {
+    console.error(error);
+
+    if (componentContainer) {
+      componentContainer.innerHTML = `
+        <div class="info-card">
+          <h2 class="panel-title">Unable to load components</h2>
+          <p>Please check back soon.</p>
+        </div>
+      `;
+    }
+  }
+}
+
+initComponentsPage();

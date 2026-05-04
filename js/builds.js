@@ -1,3 +1,16 @@
+let builds = [];
+
+async function loadBuilds() {
+  const response = await fetch(`data/builds.json?v=${Date.now()}`);
+
+  if (!response.ok) {
+    throw new Error("Could not load builds.json");
+  }
+
+  const data = await response.json();
+  return data.builds || [];
+}
+
 function createBuildTile(build) {
   const specOrder = [
     ["CPU", "cpu"],
@@ -212,4 +225,22 @@ if (resetFilters) {
   });
 }
 
-applyFiltersFromUrl();
+async function initBuildsPage() {
+  try {
+    builds = await loadBuilds();
+    applyFiltersFromUrl();
+  } catch (error) {
+    console.error(error);
+
+    if (container) {
+      container.innerHTML = `
+        <div class="info-card">
+          <h2 class="panel-title">Unable to load builds</h2>
+          <p>Please check back soon.</p>
+        </div>
+      `;
+    }
+  }
+}
+
+initBuildsPage();

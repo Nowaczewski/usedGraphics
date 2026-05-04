@@ -2,9 +2,18 @@ const detailContainer = document.getElementById("build-detail");
 const params = new URLSearchParams(window.location.search);
 const buildId = params.get("id");
 
-const build = builds.find((item) => item.id === buildId);
+async function loadBuilds() {
+  const response = await fetch(`data/builds.json?v=${Date.now()}`);
 
-if (!build) {
+  if (!response.ok) {
+    throw new Error("Could not load builds.json");
+  }
+
+  const data = await response.json();
+  return data.builds || [];
+}
+
+function renderBuildNotFound() {
   detailContainer.innerHTML = `
     <div class="info-card">
       <h1>Build not found</h1>
@@ -12,7 +21,9 @@ if (!build) {
       <a class="btn btn-primary" href="builds.html">Back to Builds</a>
     </div>
   `;
-} else {
+}
+
+function renderBuildDetail(build) {
   const buildStatus = build.status || "in-stock";
   const statusText = buildStatus === "sold" ? "Sold" : "In Stock";
   const statusClass =
@@ -32,12 +43,15 @@ if (!build) {
     case: "Case",
   };
 
-  const specs = Object.entries(build.specs)
-    .map(([key, value]) => {
-      const label = specLabels[key] || key;
-      return `<li><strong>${label}:</strong> ${value}</li>`;
-    })
-    .join("");
+  const specs = build.specs
+    ? Object.entries(build.specs)
+        .map(([key, value]) => {
+          if (!value) return "";
+          const label = specLabels[key] || key;
+          return `<li><strong>${label}:</strong> ${value}</li>`;
+        })
+        .join("")
+    : "";
 
   const games = build.games
     ? build.games.map((game) => `<li>${game}</li>`).join("")
@@ -143,3 +157,27 @@ if (!build) {
     });
   });
 }
+
+async function initBuildDetailPage() {
+  if (!detailContainer) {
+    console.error("build-detail container not found");
+    return;
+  }
+
+  try {
+    const builds = await loadBuilds();
+    const build = builds.find((item) => item.id === buildId);
+
+    if (!build) {
+      renderBuildNotFound();
+      return;
+    }
+
+    renderBuildDetail(build);
+  } catch (error) {
+    console.error(error);
+    renderBuildNotFound();
+  }
+}
+
+initBuildDetailPage();
