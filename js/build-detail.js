@@ -173,6 +173,8 @@ async function initBuildDetailPage() {
       return;
     }
 
+    document.title = `${build.name} Gaming PC Build | usedGraphics`;
+
     renderBuildDetail(build);
   } catch (error) {
     console.error(error);

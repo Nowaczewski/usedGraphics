@@ -140,6 +140,9 @@ async function initComponentDetailPage() {
       return;
     }
 
+    // ✅ SEO TITLE (THIS IS THE NEW LINE)
+    document.title = `${component.name} | usedGraphics`;
+
     renderComponentDetail(component);
   } catch (error) {
     console.error(error);
