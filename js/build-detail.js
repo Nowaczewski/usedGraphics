@@ -175,6 +175,13 @@ async function initBuildDetailPage() {
 
     document.title = `${build.name} Gaming PC Build | usedGraphics`;
 
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute(
+        "content",
+        `View details for the ${build.name} from usedGraphics, including price, availability, full specs, gaming performance, photos, and tested hardware information.`,
+      );
+
     renderBuildDetail(build);
   } catch (error) {
     console.error(error);

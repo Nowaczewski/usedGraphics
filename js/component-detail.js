@@ -140,8 +140,14 @@ async function initComponentDetailPage() {
       return;
     }
 
-    // ✅ SEO TITLE (THIS IS THE NEW LINE)
     document.title = `${component.name} | usedGraphics`;
+
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute(
+        "content",
+        `View details for the ${component.name} from usedGraphics, including price, condition, availability, photos, specs, and tested PC hardware information.`,
+      );
 
     renderComponentDetail(component);
   } catch (error) {
