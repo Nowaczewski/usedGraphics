@@ -385,6 +385,11 @@ textarea {
   padding: 28px 0 6px;
 }
 
+/* Reduces the gap between the page title area and the filters/content below it */
+.page-header + .section {
+  padding-top: 1px;
+}
+
 /* Filters */
 .filter-panel {
   background: white;
@@ -560,11 +565,13 @@ footer .container {
     height: 60px;
   }
 }
+
 .hero-card img {
   width: 100%;
   height: 320px;
   object-fit: cover;
 }
+
 .hero-logo-card {
   display: flex;
   align-items: center;
