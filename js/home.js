@@ -9,13 +9,24 @@ async function loadBuilds() {
   return data.builds || [];
 }
 
+function getBuildImageAltText(build) {
+  const gpu = build.specs && build.specs.gpu ? build.specs.gpu : "gaming PC";
+  const cpu = build.specs && build.specs.cpu ? build.specs.cpu : "custom PC";
+
+  return `${build.name} used gaming PC build with ${gpu} and ${cpu} from usedGraphics`;
+}
+
 function createHomeBuildTile(build) {
   const detailLink = `build-detail.html?id=${build.id}`;
 
   return `
     <article class="card">
       <a href="${detailLink}">
-        <img class="build-image" src="${build.image}" alt="${build.name}">
+        <img
+          class="build-image"
+          src="${build.image}"
+          alt="${getBuildImageAltText(build)}"
+        >
       </a>
 
       <div class="card-body">

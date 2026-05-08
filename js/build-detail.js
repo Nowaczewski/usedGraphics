@@ -13,6 +13,14 @@ async function loadBuilds() {
   return data.builds || [];
 }
 
+function getBuildImageAltText(build, imageNumber = null) {
+  const gpu = build.specs && build.specs.gpu ? build.specs.gpu : "gaming PC";
+  const cpu = build.specs && build.specs.cpu ? build.specs.cpu : "custom PC";
+  const imageLabel = imageNumber ? ` photo ${imageNumber}` : "";
+
+  return `${build.name}${imageLabel} showing a used gaming PC build with ${gpu} and ${cpu} from usedGraphics`;
+}
+
 function renderBuildNotFound() {
   detailContainer.innerHTML = `
     <div class="info-card">
@@ -72,9 +80,13 @@ function renderBuildDetail(build) {
         <button
           class="thumbnail-button ${index === 0 ? "active" : ""}"
           data-image="${image}"
+          data-alt="${getBuildImageAltText(build, index + 1)}"
           type="button"
         >
-          <img src="${image}" alt="${build.name} angle ${index + 1}">
+          <img
+            src="${image}"
+            alt="${getBuildImageAltText(build, index + 1)} thumbnail"
+          >
         </button>
       `,
     )
@@ -86,7 +98,7 @@ function renderBuildDetail(build) {
         id="main-build-image"
         class="build-image build-detail-main-image"
         src="${imageGallery[0]}"
-        alt="${build.name}"
+        alt="${getBuildImageAltText(build, 1)}"
       >
 
       ${
@@ -152,6 +164,7 @@ function renderBuildDetail(build) {
   thumbnailButtons.forEach((button) => {
     button.addEventListener("click", () => {
       mainImage.src = button.dataset.image;
+      mainImage.alt = button.dataset.alt;
 
       thumbnailButtons.forEach((btn) => btn.classList.remove("active"));
       button.classList.add("active");

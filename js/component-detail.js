@@ -13,6 +13,15 @@ async function loadComponents() {
   return data.components || [];
 }
 
+function getComponentImageAltText(component, imageNumber = null) {
+  const brand = component.brand ? component.brand : "used";
+  const type = component.type ? component.type : "PC component";
+  const condition = component.condition ? component.condition : "tested";
+  const imageLabel = imageNumber ? ` photo ${imageNumber}` : "";
+
+  return `${brand} ${component.name}${imageLabel} ${condition} ${type} from usedGraphics`;
+}
+
 function renderComponentNotFound() {
   componentDetailContainer.innerHTML = `
     <div class="info-card">
@@ -54,9 +63,13 @@ function renderComponentDetail(component) {
         <button
           class="thumbnail-button ${index === 0 ? "active" : ""}"
           data-image="${image}"
+          data-alt="${getComponentImageAltText(component, index + 1)}"
           type="button"
         >
-          <img src="${image}" alt="${component.name} angle ${index + 1}">
+          <img
+            src="${image}"
+            alt="${getComponentImageAltText(component, index + 1)} thumbnail"
+          >
         </button>
       `,
     )
@@ -70,7 +83,7 @@ function renderComponentDetail(component) {
         id="main-component-image"
         class="build-image build-detail-main-image"
         src="${imageGallery[0]}"
-        alt="${component.name}"
+        alt="${getComponentImageAltText(component, 1)}"
       >
 
       ${
@@ -119,6 +132,7 @@ function renderComponentDetail(component) {
   thumbnailButtons.forEach((button) => {
     button.addEventListener("click", () => {
       mainImage.src = button.dataset.image;
+      mainImage.alt = button.dataset.alt;
 
       thumbnailButtons.forEach((btn) => btn.classList.remove("active"));
       button.classList.add("active");

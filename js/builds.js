@@ -11,16 +11,19 @@ async function loadBuilds() {
   return data.builds || [];
 }
 
+function getBuildImageAltText(build) {
+  const gpu = build.specs && build.specs.gpu ? build.specs.gpu : "gaming PC";
+  const cpu = build.specs && build.specs.cpu ? build.specs.cpu : "custom PC";
+
+  return `${build.name} used gaming PC build with ${gpu} and ${cpu} from usedGraphics`;
+}
+
 function createBuildTile(build) {
   const specOrder = [
     ["CPU", "cpu"],
     ["GPU", "gpu"],
-    ["Motherboard", "motherboard"],
     ["Memory", "memory"],
     ["Storage", "storage"],
-    ["Cooling", "cooling"],
-    ["PSU", "psu"],
-    ["Case", "case"],
   ];
 
   const specsList = specOrder
@@ -29,10 +32,6 @@ function createBuildTile(build) {
       return `<li><strong>${label}:</strong> ${build.specs[key]}</li>`;
     })
     .join("");
-
-  const gamesList = build.games
-    ? build.games.map((game) => `<li>${game}</li>`).join("")
-    : "";
 
   const detailLink = `build-detail.html?id=${build.id}`;
 
@@ -44,7 +43,11 @@ function createBuildTile(build) {
   return `
     <article class="card build-card ${buildStatus === "sold" ? "sold" : ""}">
       <a href="${detailLink}" class="build-image-wrap">
-        <img class="build-image" src="${build.image}" alt="${build.name}">
+        <img
+          class="build-image"
+          src="${build.image}"
+          alt="${getBuildImageAltText(build)}"
+        >
         <span class="status-badge ${statusClass}">
           ${statusText}
         </span>
@@ -66,16 +69,6 @@ function createBuildTile(build) {
           ${specsList}
         </ul>
 
-        ${
-          gamesList
-            ? `
-              <p><strong>Games Tested:</strong></p>
-              <ul class="feature-list">
-                ${gamesList}
-              </ul>
-            `
-            : ""
-        }
 
         <div class="button-row" style="margin-top: 12px;">
           <a class="btn btn-secondary" href="${detailLink}">View Full Build</a>

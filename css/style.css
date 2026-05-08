@@ -173,6 +173,10 @@ header {
   color: #6b7280;
 }
 
+.featured-builds-section {
+  padding-top: 4px;
+}
+
 .grid {
   display: grid;
   gap: 18px;

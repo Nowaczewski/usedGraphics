@@ -11,6 +11,14 @@ async function loadComponents() {
   return data.components || [];
 }
 
+function getComponentImageAltText(component) {
+  const brand = component.brand ? component.brand : "used";
+  const type = component.type ? component.type : "PC component";
+  const condition = component.condition ? component.condition : "tested";
+
+  return `${brand} ${component.name} ${condition} ${type} for sale from usedGraphics`;
+}
+
 function createComponentTile(component) {
   const detailLink = `component-detail.html?id=${component.id}`;
 
@@ -36,7 +44,11 @@ function createComponentTile(component) {
   return `
     <article class="card build-card ${componentStatus === "sold" ? "sold" : ""}">
       <a href="${detailLink}" class="build-image-wrap">
-        <img class="build-image" src="${component.image}" alt="${component.name}">
+        <img
+          class="build-image"
+          src="${component.image}"
+          alt="${getComponentImageAltText(component)}"
+        >
         <span class="status-badge ${statusClass}">
           ${statusText}
         </span>
