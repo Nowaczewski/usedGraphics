@@ -2,6 +2,8 @@ const componentDetailContainer = document.getElementById("component-detail");
 const params = new URLSearchParams(window.location.search);
 const componentId = params.get("id");
 
+const siteUrl = "https://usedgraphics.com";
+
 async function loadComponents() {
   const response = await fetch(`data/components.json?v=${Date.now()}`);
 
@@ -20,6 +22,144 @@ function getComponentImageAltText(component, imageNumber = null) {
   const imageLabel = imageNumber ? ` photo ${imageNumber}` : "";
 
   return `${brand} ${component.name}${imageLabel} ${condition} ${type} from usedGraphics`;
+}
+
+function getAbsoluteUrl(path) {
+  if (!path) return siteUrl;
+
+  if (path.startsWith("http://") || path.startsWith("https://")) {
+    return path;
+  }
+
+  return `${siteUrl}/${path.replace(/^\/+/, "")}`;
+}
+
+function getNumericPrice(price) {
+  if (typeof price === "number") return price;
+
+  const numericPrice = Number(String(price).replace(/[^0-9.]/g, ""));
+  return Number.isFinite(numericPrice) ? numericPrice : undefined;
+}
+
+function getAvailabilitySchema(status) {
+  return status === "sold"
+    ? "https://schema.org/SoldOut"
+    : "https://schema.org/InStock";
+}
+
+function addComponentSchema(component) {
+  const componentStatus = component.status || "in-stock";
+  const imageGallery =
+    component.images && component.images.length
+      ? component.images
+      : [component.image];
+
+  const componentDetails = component.details
+    ? Object.entries(component.details)
+        .filter(([, value]) => value)
+        .map(([key, value]) => {
+          const label = key
+            .replace(/([A-Z])/g, " $1")
+            .replace(/^./, (str) => str.toUpperCase());
+
+          return {
+            "@type": "PropertyValue",
+            name: label,
+            value: value,
+          };
+        })
+    : [];
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${siteUrl}/component-detail.html?id=${component.id}#product`,
+    name: component.name,
+    description:
+      component.description ||
+      `${component.name} used PC component from usedGraphics with price, condition, availability, and hardware details.`,
+    image: imageGallery.filter(Boolean).map((image) => getAbsoluteUrl(image)),
+    brand: {
+      "@type": "Brand",
+      name: component.brand || "usedGraphics",
+    },
+    category: component.type || "Used PC Component",
+    url: `${siteUrl}/component-detail.html?id=${component.id}`,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: getNumericPrice(component.price),
+      availability: getAvailabilitySchema(componentStatus),
+      itemCondition:
+        component.condition === "New"
+          ? "https://schema.org/NewCondition"
+          : "https://schema.org/UsedCondition",
+      url: `${siteUrl}/component-detail.html?id=${component.id}`,
+      seller: {
+        "@type": "Organization",
+        name: "usedGraphics",
+        url: siteUrl,
+      },
+    },
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Type",
+        value: component.type || "",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Condition",
+        value: component.condition || "",
+      },
+      ...componentDetails,
+    ].filter((property) => property.value),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Components",
+        item: `${siteUrl}/components.html`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: component.name,
+        item: `${siteUrl}/component-detail.html?id=${component.id}`,
+      },
+    ],
+  };
+
+  const existingSchema = document.getElementById("component-product-schema");
+
+  if (existingSchema) {
+    existingSchema.remove();
+  }
+
+  const schemaScript = document.createElement("script");
+  schemaScript.type = "application/ld+json";
+  schemaScript.id = "component-product-schema";
+  schemaScript.textContent = JSON.stringify(
+    {
+      "@context": "https://schema.org",
+      "@graph": [productSchema, breadcrumbSchema],
+    },
+    null,
+    2,
+  );
+
+  document.head.appendChild(schemaScript);
 }
 
 function renderComponentNotFound() {
@@ -164,6 +304,7 @@ async function initComponentDetailPage() {
         `View details for the ${component.name} from usedGraphics, including price, condition, availability, photos, specs, and tested PC hardware information.`,
       );
 
+    addComponentSchema(component);
     renderComponentDetail(component);
   } catch (error) {
     console.error(error);

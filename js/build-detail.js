@@ -2,6 +2,8 @@ const detailContainer = document.getElementById("build-detail");
 const params = new URLSearchParams(window.location.search);
 const buildId = params.get("id");
 
+const siteUrl = "https://usedgraphics.com";
+
 async function loadBuilds() {
   const response = await fetch(`data/builds.json?v=${Date.now()}`);
 
@@ -19,6 +21,163 @@ function getBuildImageAltText(build, imageNumber = null) {
   const imageLabel = imageNumber ? ` photo ${imageNumber}` : "";
 
   return `${build.name}${imageLabel} showing a used gaming PC build with ${gpu} and ${cpu} from usedGraphics`;
+}
+
+function getAbsoluteUrl(path) {
+  if (!path) return siteUrl;
+
+  if (path.startsWith("http://") || path.startsWith("https://")) {
+    return path;
+  }
+
+  return `${siteUrl}/${path.replace(/^\/+/, "")}`;
+}
+
+function getNumericPrice(price) {
+  if (typeof price === "number") return price;
+
+  const numericPrice = Number(String(price).replace(/[^0-9.]/g, ""));
+  return Number.isFinite(numericPrice) ? numericPrice : undefined;
+}
+
+function getAvailabilitySchema(status) {
+  return status === "sold"
+    ? "https://schema.org/SoldOut"
+    : "https://schema.org/InStock";
+}
+
+function addBuildSchema(build) {
+  const buildStatus = build.status || "in-stock";
+  const imageGallery =
+    build.images && build.images.length ? build.images : [build.image];
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${siteUrl}/build-detail.html?id=${build.id}#product`,
+    name: build.name,
+    description:
+      build.description ||
+      `${build.name} used gaming PC build from usedGraphics with tested hardware, pricing, and gaming performance information.`,
+    image: imageGallery.filter(Boolean).map((image) => getAbsoluteUrl(image)),
+    brand: {
+      "@type": "Brand",
+      name: "usedGraphics",
+    },
+    category: "Used Gaming PC",
+    url: `${siteUrl}/build-detail.html?id=${build.id}`,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: getNumericPrice(build.price),
+      availability: getAvailabilitySchema(buildStatus),
+      itemCondition: "https://schema.org/UsedCondition",
+      url: `${siteUrl}/build-detail.html?id=${build.id}`,
+      seller: {
+        "@type": "Organization",
+        name: "usedGraphics",
+        url: siteUrl,
+      },
+    },
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Tier",
+        value: build.tier || "",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Performance",
+        value: build.fps || "",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "CPU",
+        value: build.specs && build.specs.cpu ? build.specs.cpu : "",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "GPU",
+        value: build.specs && build.specs.gpu ? build.specs.gpu : "",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Motherboard",
+        value:
+          build.specs && build.specs.motherboard ? build.specs.motherboard : "",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Memory",
+        value: build.specs && build.specs.memory ? build.specs.memory : "",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Storage",
+        value: build.specs && build.specs.storage ? build.specs.storage : "",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Cooling",
+        value: build.specs && build.specs.cooling ? build.specs.cooling : "",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Power Supply",
+        value: build.specs && build.specs.psu ? build.specs.psu : "",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Case",
+        value: build.specs && build.specs.case ? build.specs.case : "",
+      },
+    ].filter((property) => property.value),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Builds",
+        item: `${siteUrl}/builds.html`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: build.name,
+        item: `${siteUrl}/build-detail.html?id=${build.id}`,
+      },
+    ],
+  };
+
+  const existingSchema = document.getElementById("build-product-schema");
+
+  if (existingSchema) {
+    existingSchema.remove();
+  }
+
+  const schemaScript = document.createElement("script");
+  schemaScript.type = "application/ld+json";
+  schemaScript.id = "build-product-schema";
+  schemaScript.textContent = JSON.stringify(
+    {
+      "@context": "https://schema.org",
+      "@graph": [productSchema, breadcrumbSchema],
+    },
+    null,
+    2,
+  );
+
+  document.head.appendChild(schemaScript);
 }
 
 function renderBuildNotFound() {
@@ -196,6 +355,7 @@ async function initBuildDetailPage() {
         `View details for the ${build.name} from usedGraphics, including price, availability, full specs, gaming performance, photos, and tested hardware information.`,
       );
 
+    addBuildSchema(build);
     renderBuildDetail(build);
   } catch (error) {
     console.error(error);

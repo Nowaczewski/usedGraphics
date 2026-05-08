@@ -18,6 +18,43 @@
       type="image/png"
       href="images/logos/usedGraphics_logo_favicon.png"
     />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://usedgraphics.com/#organization",
+            "name": "usedGraphics",
+            "url": "https://usedgraphics.com/",
+            "logo": "https://usedgraphics.com/images/logos/usedGraphics_logo.png",
+            "description": "usedGraphics sells affordable used gaming PCs, custom PC builds, and tested PC components."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://usedgraphics.com/#website",
+            "name": "usedGraphics",
+            "url": "https://usedgraphics.com/",
+            "publisher": {
+              "@id": "https://usedgraphics.com/#organization"
+            }
+          },
+          {
+            "@type": "Store",
+            "@id": "https://usedgraphics.com/#store",
+            "name": "usedGraphics",
+            "url": "https://usedgraphics.com/",
+            "description": "Affordable used gaming PCs, custom PC builds, and tested PC components.",
+            "image": "https://usedgraphics.com/images/logos/usedGraphics_logo.png",
+            "brand": {
+              "@id": "https://usedgraphics.com/#organization"
+            },
+            "sameAs": ["https://www.youtube.com/@BigestKnob"]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div class="topbar">

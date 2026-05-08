@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://usedgraphics.com/</loc>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://usedgraphics.com/builds.html</loc>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://usedgraphics.com/build-detail.html?id=3060-ti</loc>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://usedgraphics.com/components.html</loc>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://usedgraphics.com/component-detail.html?id=rtx-3060-ti</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://usedgraphics.com/how-to-buy.html</loc>
+    <priority>0.75</priority>
+  </url>
+
+  <url>
+    <loc>https://usedgraphics.com/youtube.html</loc>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://usedgraphics.com/contact.html</loc>
+    <priority>0.65</priority>
+  </url>
+
+  <url>
+    <loc>https://usedgraphics.com/contact-success.html</loc>
+    <priority>0.20</priority>
+  </url>
+</urlset>
