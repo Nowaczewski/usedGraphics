@@ -90,6 +90,7 @@ function renderComponentDetail(component) {
         ${statusText}
       </span>
 
+      <h2>Component Information</h2>
       <p><strong>Availability:</strong> ${statusText}</p>
       <p><strong>Brand:</strong> ${component.brand}</p>
       <p><strong>Condition:</strong> ${component.condition}</p>

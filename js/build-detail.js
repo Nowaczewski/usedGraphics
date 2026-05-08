@@ -106,6 +106,7 @@ function renderBuildDetail(build) {
         ${statusText}
       </span>
 
+      <h2>Build Information</h2>
       <p><strong>Availability:</strong> ${statusText}</p>
       <p><strong>Price:</strong> ${build.price}</p>
       <p><strong>Performance:</strong> ${build.fps}</p>
