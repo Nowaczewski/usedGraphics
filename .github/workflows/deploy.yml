@@ -27,6 +27,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Generate sitemap
+        run: node scripts/generate-sitemap.js
+
       - name: Add cache-busting version to static assets
         run: |
           VERSION=${GITHUB_SHA::7}
