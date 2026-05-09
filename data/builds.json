@@ -27,6 +27,33 @@
         "Fortnite at 85 FPS Performance Mode",
         "Battlefield 6 at 80 FPS Performance Mode"
       ]
+    },
+    {
+      "id": "seo-test-build",
+      "tier": "Budget Tier",
+      "name": "test build site map",
+      "image": "https://picsum.photos/id/216/1920/1280.webp",
+      "images": [
+        "https://picsum.photos/id/381/1920/1280.webp"
+      ],
+      "status": "in-stock",
+      "price": "1",
+      "fps": "1",
+      "youtube": "",
+      "description": "test",
+      "specs": {
+        "cpu": "t",
+        "gpu": "t",
+        "motherboard": "t",
+        "memory": "t",
+        "storage": "t",
+        "cooling": "t",
+        "psu": "t",
+        "case": "t"
+      },
+      "games": [
+        "testing"
+      ]
     }
   ]
 }
