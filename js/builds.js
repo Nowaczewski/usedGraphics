@@ -11,6 +11,19 @@ async function loadBuilds() {
   return data.builds || [];
 }
 
+function normalizeValue(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/_/g, "-");
+}
+
+function normalizeTier(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase();
+}
+
 function getBuildImageAltText(build) {
   const gpu = build.specs && build.specs.gpu ? build.specs.gpu : "gaming PC";
   const cpu = build.specs && build.specs.cpu ? build.specs.cpu : "custom PC";
@@ -35,7 +48,7 @@ function createBuildTile(build) {
 
   const detailLink = `build-detail.html?id=${build.id}`;
 
-  const buildStatus = build.status || "in-stock";
+  const buildStatus = normalizeValue(build.status || "in-stock");
   const statusText = buildStatus === "sold" ? "Sold" : "In Stock";
   const statusClass =
     buildStatus === "sold" ? "status-sold" : "status-in-stock";
@@ -68,7 +81,6 @@ function createBuildTile(build) {
         <ul class="feature-list">
           ${specsList}
         </ul>
-
 
         <div class="button-row" style="margin-top: 12px;">
           <a class="btn btn-secondary" href="${detailLink}">View Full Build</a>
@@ -124,26 +136,26 @@ function filterBuilds() {
   let filteredBuilds = [...builds];
 
   const selectedAvailability = availabilityFilter
-    ? availabilityFilter.value
+    ? normalizeValue(availabilityFilter.value)
     : "all";
 
-  const selectedTier = tierFilter ? tierFilter.value : "all";
+  const selectedTier = tierFilter ? normalizeTier(tierFilter.value) : "all";
   const selectedPrice = priceFilter ? priceFilter.value : "all";
   const selectedPerformance = performanceFilter
-    ? performanceFilter.value
+    ? normalizeValue(performanceFilter.value)
     : "all";
   const selectedSort = sortFilter ? sortFilter.value : "default";
 
   if (selectedAvailability !== "all") {
     filteredBuilds = filteredBuilds.filter((build) => {
-      const buildStatus = build.status || "in-stock";
+      const buildStatus = normalizeValue(build.status || "in-stock");
       return buildStatus === selectedAvailability;
     });
   }
 
   if (selectedTier !== "all") {
     filteredBuilds = filteredBuilds.filter(
-      (build) => build.tier === selectedTier,
+      (build) => normalizeTier(build.tier) === selectedTier,
     );
   }
 
@@ -162,7 +174,7 @@ function filterBuilds() {
 
   if (selectedPerformance !== "all") {
     filteredBuilds = filteredBuilds.filter((build) =>
-      String(build.fps).toLowerCase().includes(selectedPerformance),
+      normalizeValue(build.fps).includes(selectedPerformance),
     );
   }
 
@@ -214,7 +226,7 @@ if (resetFilters) {
 
     window.history.replaceState({}, document.title, "builds.html");
 
-    renderBuilds(builds);
+    filterBuilds();
   });
 }
 

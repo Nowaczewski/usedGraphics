@@ -11,6 +11,19 @@ async function loadComponents() {
   return data.components || [];
 }
 
+function normalizeValue(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/_/g, "-");
+}
+
+function normalizeLabel(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase();
+}
+
 function getComponentImageAltText(component) {
   const brand = component.brand ? component.brand : "used";
   const type = component.type ? component.type : "PC component";
@@ -22,7 +35,7 @@ function getComponentImageAltText(component) {
 function createComponentTile(component) {
   const detailLink = `component-detail.html?id=${component.id}`;
 
-  const componentStatus = component.status || "in-stock";
+  const componentStatus = normalizeValue(component.status || "in-stock");
   const statusText = componentStatus === "sold" ? "Sold" : "In Stock";
   const statusClass =
     componentStatus === "sold" ? "status-sold" : "status-in-stock";
@@ -125,30 +138,32 @@ function filterComponents() {
   let filteredComponents = [...components];
 
   const selectedAvailability = availabilityFilter
-    ? availabilityFilter.value
+    ? normalizeValue(availabilityFilter.value)
     : "all";
 
-  const selectedType = typeFilter ? typeFilter.value : "all";
-  const selectedCondition = conditionFilter ? conditionFilter.value : "all";
+  const selectedType = typeFilter ? normalizeLabel(typeFilter.value) : "all";
+  const selectedCondition = conditionFilter
+    ? normalizeLabel(conditionFilter.value)
+    : "all";
   const selectedPrice = priceFilter ? priceFilter.value : "all";
   const selectedSort = sortFilter ? sortFilter.value : "default";
 
   if (selectedAvailability !== "all") {
     filteredComponents = filteredComponents.filter((component) => {
-      const componentStatus = component.status || "in-stock";
+      const componentStatus = normalizeValue(component.status || "in-stock");
       return componentStatus === selectedAvailability;
     });
   }
 
   if (selectedType !== "all") {
     filteredComponents = filteredComponents.filter(
-      (component) => component.type === selectedType,
+      (component) => normalizeLabel(component.type) === selectedType,
     );
   }
 
   if (selectedCondition !== "all") {
     filteredComponents = filteredComponents.filter(
-      (component) => component.condition === selectedCondition,
+      (component) => normalizeLabel(component.condition) === selectedCondition,
     );
   }
 
@@ -209,7 +224,7 @@ if (resetFilters) {
 
     window.history.replaceState({}, document.title, "components.html");
 
-    renderComponents(components);
+    filterComponents();
   });
 }
 

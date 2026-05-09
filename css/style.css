@@ -403,11 +403,41 @@ textarea {
   margin-bottom: 24px;
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
   display: grid;
-  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 14px;
   align-items: end;
 }
 
+.filter-panel .btn {
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+.filter-panel button.btn,
+.filter-panel .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  font: inherit;
+}
+
+.filter-panel .btn-secondary {
+  background: #d71920;
+  color: #ffffff;
+  border: 1px solid #d71920;
+}
+
+.filter-panel .btn-secondary:hover {
+  background: #b9151b;
+  color: #ffffff;
+  border-color: #b9151b;
+}
 .filter-group label {
   display: block;
   font-weight: 800;
